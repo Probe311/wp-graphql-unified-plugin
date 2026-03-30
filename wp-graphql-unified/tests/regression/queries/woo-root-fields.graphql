@@ -1,0 +1,7 @@
+query WooRootFields {
+  __type(name: "RootQuery") {
+    fields {
+      name
+    }
+  }
+}

@@ -1,0 +1,14 @@
+query IntrospectionCritical {
+  __type(name: "RootQuery") {
+    name
+    fields {
+      name
+    }
+  }
+  userType: __type(name: "User") {
+    name
+    fields {
+      name
+    }
+  }
+}

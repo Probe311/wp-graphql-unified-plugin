@@ -1,0 +1,21 @@
+query ModulesCritical {
+  rootQuery: __type(name: "RootQuery") {
+    name
+    fields {
+      name
+    }
+  }
+  rootMutation: __type(name: "RootMutation") {
+    name
+    fields {
+      name
+    }
+  }
+  productType: __type(name: "Product") {
+    name
+  }
+  blockUnion: __type(name: "BlockUnion") {
+    name
+    kind
+  }
+}
