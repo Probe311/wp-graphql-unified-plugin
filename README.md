@@ -1,9 +1,5 @@
 # WPGraphQL Unified Plugin
 
-Description courte: plugin WordPress unifie pour exposer un schema GraphQL complet (core + Woo + ACF + JWT + Gutenberg + SEO) via une seule extension.
-
-Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless, nextjs, react
-
 Plugin WordPress unifié qui regroupe WPGraphQL core et les extensions principales dans une seule extension autonome.
 
 ## Objectif
