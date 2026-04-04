@@ -95,6 +95,30 @@ final class Plugin {
 	 *
 	 * @return list<array{id:string,flag:string,enabled:bool,description:string,env:string}>
 	 */
+	/**
+	 * Ordre des drapeaux pour l’inventaire bundle (menu GraphQL, carte Extensions).
+	 *
+	 * @return list<string>
+	 */
+	public static function bundle_flag_order(): array {
+		return array(
+			'core',
+			'cpt',
+			'enable_all',
+			'cpt_ui',
+			'meta_query',
+			'tax_query',
+			'meta',
+			'total_counts',
+			'mb_relationships',
+			'seo',
+			'acf',
+			'gutenberg',
+			'woo',
+			'jwt',
+		);
+	}
+
 	public static function admin_status_rows(): array {
 		$map          = self::module_class_map();
 		$descriptions = FeatureFlags::descriptions();

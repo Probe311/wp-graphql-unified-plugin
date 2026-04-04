@@ -6,16 +6,20 @@ use WPGraphQLUnified\Plugin;
 use WPGraphQLUnified\Support\FeatureFlags;
 
 final class PluginAdmin {
+	public const GRAPHQL_SUBMENU_SLUG = 'wpgraphql-unified-graphql';
+
 	private const OPTION_NAME  = 'wpgraphql_unified_feature_flags';
 	private const PAGE_SLUG    = 'wpgraphql-unified-settings';
 	private const LEGACY_TOOLS = 'wpgraphql-unified-status';
 	private const NONCE_ACTION = 'wpgraphql_unified_save_packages';
 	private const NONCE_FIELD  = 'wpgraphql_unified_packages_nonce';
+	private const RETURN_FIELD = 'wpgraphql_unified_return_page';
 
 	public static function register(): void {
 		add_action( 'admin_init', array( self::class, 'maybe_redirect_legacy_tools' ) );
 		add_action( 'admin_init', array( self::class, 'maybe_save_packages' ) );
 		add_action( 'admin_menu', array( self::class, 'add_settings_page' ) );
+		add_action( 'admin_menu', array( self::class, 'add_graphql_elephant_submenu' ), 11 );
 		add_filter( 'plugin_row_meta', array( self::class, 'row_meta' ), 10, 2 );
 		add_filter( 'plugin_action_links_' . plugin_basename( WPGRAPHQL_UNIFIED_FILE ), array( self::class, 'action_links' ), 10, 2 );
 	}
@@ -55,14 +59,35 @@ final class PluginAdmin {
 		$sanitized = FeatureFlags::sanitize_option_payload( $raw );
 		update_option( self::OPTION_NAME, $sanitized );
 
-		wp_safe_redirect(
-			add_query_arg(
-				'wpgraphql_unified_saved',
-				'1',
-				admin_url( 'options-general.php?page=' . self::PAGE_SLUG )
-			)
-		);
+		$allowed_return = array( self::PAGE_SLUG, self::GRAPHQL_SUBMENU_SLUG );
+		$return         = isset( $_POST[ self::RETURN_FIELD ] )
+			? sanitize_text_field( wp_unslash( $_POST[ self::RETURN_FIELD ] ) )
+			: self::PAGE_SLUG;
+		if ( ! in_array( $return, $allowed_return, true ) ) {
+			$return = self::PAGE_SLUG;
+		}
+		$base   = self::PAGE_SLUG === $return
+			? admin_url( 'options-general.php?page=' . self::PAGE_SLUG )
+			: admin_url( 'admin.php?page=' . self::GRAPHQL_SUBMENU_SLUG );
+
+		wp_safe_redirect( add_query_arg( 'wpgraphql_unified_saved', '1', $base ) );
 		exit;
+	}
+
+	public static function add_graphql_elephant_submenu(): void {
+		global $submenu;
+		if ( ! isset( $submenu['graphiql-ide'] ) || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		add_submenu_page(
+			'graphiql-ide',
+			__( 'WPGraphQL Unified — paquets', 'wp-graphql-unified' ),
+			__( 'Paquets unifiés', 'wp-graphql-unified' ),
+			'manage_options',
+			self::GRAPHQL_SUBMENU_SLUG,
+			array( self::class, 'render_settings_page' )
+		);
 	}
 
 	public static function add_settings_page(): void {
@@ -92,8 +117,14 @@ final class PluginAdmin {
 		$descriptions = FeatureFlags::descriptions();
 		$defaults    = FeatureFlags::defaults();
 
+		$return_slug = self::current_settings_return_slug();
+
 		echo '<div class="wrap">';
 		echo '<h1>' . esc_html__( 'WPGraphQL Unified', 'wp-graphql-unified' ) . '</h1>';
+
+		if ( self::GRAPHQL_SUBMENU_SLUG === $return_slug ) {
+			echo '<div class="notice notice-info inline" style="margin:12px 0;"><p>' . esc_html__( 'Écran lié au menu GraphQL (éléphant) : tout ce qui est coché ici correspond aux extensions chargées avec WPGraphQL.', 'wp-graphql-unified' ) . '</p></div>';
+		}
 
 		echo '<div class="card" style="max-width:720px;margin-bottom:1.5em;padding:12px 16px;">';
 		echo '<p style="margin:0 0 8px;"><strong>' . esc_html__( 'Auteur', 'wp-graphql-unified' ) . '</strong> — ';
@@ -108,8 +139,11 @@ final class PluginAdmin {
 		echo '<h2>' . esc_html__( 'Paquets / modules', 'wp-graphql-unified' ) . '</h2>';
 		echo '<p class="description">' . esc_html__( 'Décochez un paquet pour le désactiver. Les constantes WPGRAPHQL_UNIFIED_ENABLE_* dans wp-config.php priment et ne sont pas modifiables ici.', 'wp-graphql-unified' ) . '</p>';
 
-		echo '<form method="post" action="' . esc_url( admin_url( 'options-general.php?page=' . self::PAGE_SLUG ) ) . '">';
+		$form_action = self::settings_form_action_url( $return_slug );
+
+		echo '<form method="post" action="' . esc_url( $form_action ) . '">';
 		wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD );
+		echo '<input type="hidden" name="' . esc_attr( self::RETURN_FIELD ) . '" value="' . esc_attr( $return_slug ) . '" />';
 		echo '<table class="form-table" role="presentation"><tbody>';
 
 		foreach ( array_keys( $defaults ) as $flag ) {
@@ -205,5 +239,22 @@ final class PluginAdmin {
 		}
 
 		return $links;
+	}
+
+	private static function current_settings_return_slug(): string {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lecture seule du contexte d’écran
+		if ( isset( $_GET['page'] ) && self::GRAPHQL_SUBMENU_SLUG === $_GET['page'] ) {
+			return self::GRAPHQL_SUBMENU_SLUG;
+		}
+
+		return self::PAGE_SLUG;
+	}
+
+	private static function settings_form_action_url( string $return_slug ): string {
+		if ( self::GRAPHQL_SUBMENU_SLUG === $return_slug ) {
+			return admin_url( 'admin.php?page=' . self::GRAPHQL_SUBMENU_SLUG );
+		}
+
+		return admin_url( 'options-general.php?page=' . self::PAGE_SLUG );
 	}
 }
