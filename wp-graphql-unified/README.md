@@ -69,6 +69,12 @@ Notices si source manquante ou prerequis WordPress absent (WooCommerce, ACF, CPT
 
 Hooks utiles : `wpgraphql_unified_booted`, filtre `wpgraphql_unified_legacy_path` (chemin absolu résolu pour un fichier sous `legacy/`).
 
+### Menus GraphQL dans l’admin
+
+Le menu principal **GraphQL** (GraphiQL IDE, Réglages, Extensions) est celui de **WPGraphQL**. L’intégration **Gutenberg** est rangée sous **GraphQL → Gutenberg (blocs)** dès que le module Gutenberg du bundle est actif et que GraphiQL n’est pas désactivé.
+
+Sur **GraphQL → Extensions**, le filtre `graphql_get_extensions` est utilisé pour retirer les fiches « Installer » des extensions déjà embarquées (ACF, Yoast SEO GraphQL) et afficher une carte **WPGraphQL Unified** comme extension installée.
+
 ## Tests
 
 ```powershell

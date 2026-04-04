@@ -3,6 +3,7 @@
 namespace WPGraphQLUnified;
 
 use WPGraphQLUnified\Admin\PluginAdmin;
+use WPGraphQLUnified\Admin\WpGraphqlExtensionsBridge;
 use WPGraphQLUnified\Contracts\ModuleInterface;
 use WPGraphQLUnified\Modules\AcfModule;
 use WPGraphQLUnified\Modules\CoreWpGraphqlModule;
@@ -66,6 +67,7 @@ final class Plugin {
 		add_action( 'plugins_loaded', array( $this, 'register_non_core_modules' ), 20 );
 		add_action( 'admin_notices', array( ModuleStatusReporter::class, 'render_admin_notices' ) );
 		PluginAdmin::register();
+		WpGraphqlExtensionsBridge::register();
 		/**
 		 * Plugin initialisé (modules instanciés, hooks posés).
 		 */

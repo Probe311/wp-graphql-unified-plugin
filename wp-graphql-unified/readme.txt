@@ -4,7 +4,7 @@ Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless,
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 8.1
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,6 +57,10 @@ Oui : **Reglages > WPGraphQL Unified** (option `wpgraphql_unified_feature_flags`
 WordPress **6.5+**, PHP **8.1+** (8.3 ou 8.4 recommandes). Teste avec WordPress **6.9.x**. Le front headless (React, Next.js) est indépendant : voir `package.json` a la racine du plugin pour les engines Node/npm.
 
 == Changelog ==
+
+= 0.3.1 =
+* Page WPGraphQL Extensions : retrait des cartes ACF / Add WPGraphQL SEO lorsqu'ils sont deja fournis par le bundle ; ajout d'une fiche « WPGraphQL Unified » reconnue comme installee.
+* Menu « GraphQL Gutenberg » deplace sous **GraphQL** (sous-menu) lorsque GraphiQL est actif.
 
 = 0.3.0 =
 * Auteur : Julien Vaissier, URI https://julienvaissier.fr/fr/
