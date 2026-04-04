@@ -3,15 +3,11 @@
 namespace WPGraphQLUnified\Modules;
 
 use WPGraphQLUnified\Contracts\ModuleInterface;
-use WPGraphQLUnified\Support\FeatureFlags;
-use WPGraphQLUnified\Support\LegacyPathResolver;
+use WPGraphQLUnified\Support\BundledLegacy;
 use WPGraphQLUnified\Support\ModuleStatusReporter;
 
 final class CptUiModule implements ModuleInterface {
 	public function register(): void {
-		if ( ! FeatureFlags::enabled( 'cpt_ui' ) ) {
-			return;
-		}
 		if ( class_exists( 'WPGraphQL_CPT_UI' ) ) {
 			return;
 		}
@@ -20,14 +16,10 @@ final class CptUiModule implements ModuleInterface {
 			return;
 		}
 
-		$main_file = LegacyPathResolver::resolve(
-			'wp-graphql-custom-post-type-ui-master/wp-graphql-custom-post-type-ui-master/wp-graphql-custom-post-type-ui.php'
+		BundledLegacy::require_file(
+			'wp-graphql-custom-post-type-ui-master/wp-graphql-custom-post-type-ui-master/wp-graphql-custom-post-type-ui.php',
+			'CPTUI',
+			'Bundled WPGraphQL Custom Post Type UI source not found.'
 		);
-		if ( '' !== $main_file ) {
-			require_once $main_file;
-			return;
-		}
-
-		ModuleStatusReporter::error( 'CPTUI', 'Bundled WPGraphQL Custom Post Type UI source not found.' );
 	}
 }

@@ -3,8 +3,7 @@
 namespace WPGraphQLUnified\Modules;
 
 use WPGraphQLUnified\Contracts\ModuleInterface;
-use WPGraphQLUnified\Support\LegacyPathResolver;
-use WPGraphQLUnified\Support\ModuleStatusReporter;
+use WPGraphQLUnified\Support\BundledLegacy;
 
 final class JwtAuthModule implements ModuleInterface {
 	public function register(): void {
@@ -12,12 +11,10 @@ final class JwtAuthModule implements ModuleInterface {
 			return;
 		}
 
-		$main_file = LegacyPathResolver::resolve( 'wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication.php' );
-		if ( '' !== $main_file ) {
-			require_once $main_file;
-			return;
-		}
-
-		ModuleStatusReporter::error( 'JWT', 'Bundled WPGraphQL JWT Authentication source not found.' );
+		BundledLegacy::require_file(
+			'wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication.php',
+			'JWT',
+			'Bundled WPGraphQL JWT Authentication source not found.'
+		);
 	}
 }

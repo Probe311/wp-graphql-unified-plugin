@@ -3,8 +3,7 @@
 namespace WPGraphQLUnified\Modules;
 
 use WPGraphQLUnified\Contracts\ModuleInterface;
-use WPGraphQLUnified\Support\LegacyPathResolver;
-use WPGraphQLUnified\Support\ModuleStatusReporter;
+use WPGraphQLUnified\Support\BundledLegacy;
 
 final class GutenbergModule implements ModuleInterface {
 	public function register(): void {
@@ -12,12 +11,10 @@ final class GutenbergModule implements ModuleInterface {
 			return;
 		}
 
-		$main_file = LegacyPathResolver::resolve( 'wp-graphql-gutenberg-develop/wp-graphql-gutenberg-develop/plugin.php' );
-		if ( '' !== $main_file ) {
-			require_once $main_file;
-			return;
-		}
-
-		ModuleStatusReporter::error( 'Gutenberg', 'Bundled WPGraphQL Gutenberg source not found.' );
+		BundledLegacy::require_file(
+			'wp-graphql-gutenberg-develop/wp-graphql-gutenberg-develop/plugin.php',
+			'Gutenberg',
+			'Bundled WPGraphQL Gutenberg source not found.'
+		);
 	}
 }

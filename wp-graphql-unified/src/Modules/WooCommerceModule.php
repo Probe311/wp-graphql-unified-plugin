@@ -3,7 +3,7 @@
 namespace WPGraphQLUnified\Modules;
 
 use WPGraphQLUnified\Contracts\ModuleInterface;
-use WPGraphQLUnified\Support\LegacyPathResolver;
+use WPGraphQLUnified\Support\BundledLegacy;
 use WPGraphQLUnified\Support\ModuleStatusReporter;
 
 final class WooCommerceModule implements ModuleInterface {
@@ -16,12 +16,10 @@ final class WooCommerceModule implements ModuleInterface {
 			return;
 		}
 
-		$main_file = LegacyPathResolver::resolve( 'wp-graphql-woocommerce-v0.19.0/wp-graphql-woocommerce.php' );
-		if ( '' !== $main_file ) {
-			require_once $main_file;
-			return;
-		}
-
-		ModuleStatusReporter::error( 'WooCommerce', 'Bundled WooGraphQL source not found.' );
+		BundledLegacy::require_file(
+			'wp-graphql-woocommerce-v0.19.0/wp-graphql-woocommerce.php',
+			'WooCommerce',
+			'Bundled WooGraphQL source not found.'
+		);
 	}
 }

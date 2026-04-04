@@ -5,16 +5,7 @@ namespace WPGraphQLUnified\Support;
 final class LegacyPathResolver {
 	public static function resolve( string $relative_path ): string {
 		$bundled = WPGRAPHQL_UNIFIED_DIR . 'legacy/' . ltrim( $relative_path, '/\\' );
-		if ( file_exists( $bundled ) ) {
-			return $bundled;
-		}
-
-		$workspace = dirname( WPGRAPHQL_UNIFIED_DIR ) . '/' . ltrim( $relative_path, '/\\' );
-		if ( file_exists( $workspace ) ) {
-			return $workspace;
-		}
-
-		return '';
+		return file_exists( $bundled ) ? $bundled : '';
 	}
 
 	/**

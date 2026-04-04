@@ -48,8 +48,7 @@ Voir `src/Plugin.php` : exposition CPT, filtres de requete, meta, totaux, MB, SE
 
 ## Sources legacy
 
-1. `wp-graphql-unified/legacy/...`
-2. Fallback : dossier parent du plugin (dev)
+Toutes les extensions sont lues uniquement depuis `wp-graphql-unified/legacy/` (deploiement autonome, sans dossiers dupliques a la racine du depot).
 
 ## Diagnostics admin
 

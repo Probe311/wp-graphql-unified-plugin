@@ -12,7 +12,7 @@ Passer d'un stack de plusieurs extensions WPGraphQL à un plugin unique. Le doss
 
 Le snippet `google-schema` historique n'est pas charge pour eviter les doublons SEO.
 
-Ce dépôt contient le plugin final dans `wp-graphql-unified/`.
+Ce dépôt se limite au dossier `wp-graphql-unified/` : les sources d’extensions ne sont pas dupliquées à la racine (tout est dans `legacy/`).
 
 ## Contenu du dépôt
 

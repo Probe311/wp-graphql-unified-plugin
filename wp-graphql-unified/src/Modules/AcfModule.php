@@ -3,7 +3,7 @@
 namespace WPGraphQLUnified\Modules;
 
 use WPGraphQLUnified\Contracts\ModuleInterface;
-use WPGraphQLUnified\Support\LegacyPathResolver;
+use WPGraphQLUnified\Support\BundledLegacy;
 use WPGraphQLUnified\Support\ModuleStatusReporter;
 
 final class AcfModule implements ModuleInterface {
@@ -16,12 +16,10 @@ final class AcfModule implements ModuleInterface {
 			return;
 		}
 
-		$main_file = LegacyPathResolver::resolve( 'wpgraphql-acf-develop/wpgraphql-acf-develop/wpgraphql-acf.php' );
-		if ( '' !== $main_file ) {
-			require_once $main_file;
-			return;
-		}
-
-		ModuleStatusReporter::error( 'ACF', 'Bundled WPGraphQL for ACF source not found.' );
+		BundledLegacy::require_file(
+			'wpgraphql-acf-develop/wpgraphql-acf-develop/wpgraphql-acf.php',
+			'ACF',
+			'Bundled WPGraphQL for ACF source not found.'
+		);
 	}
 }

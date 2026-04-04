@@ -3,7 +3,7 @@
 namespace WPGraphQLUnified\Modules;
 
 use WPGraphQLUnified\Contracts\ModuleInterface;
-use WPGraphQLUnified\Support\LegacyPathResolver;
+use WPGraphQLUnified\Support\BundledLegacy;
 use WPGraphQLUnified\Support\ModuleStatusReporter;
 
 /**
@@ -16,14 +16,11 @@ final class SeoRouterModule implements ModuleInterface {
 		}
 
 		if ( function_exists( 'YoastSEO' ) ) {
-			$main_file = LegacyPathResolver::resolve(
-				'wp-graphql-yoast-seo-master/wp-graphql-yoast-seo-master/wp-graphql-yoast-seo.php'
+			BundledLegacy::require_file(
+				'wp-graphql-yoast-seo-master/wp-graphql-yoast-seo-master/wp-graphql-yoast-seo.php',
+				'YoastSEO',
+				'Bundled Add WPGraphQL SEO source not found.'
 			);
-			if ( '' !== $main_file ) {
-				require_once $main_file;
-				return;
-			}
-			ModuleStatusReporter::error( 'YoastSEO', 'Bundled Add WPGraphQL SEO source not found.' );
 			return;
 		}
 

@@ -15,7 +15,6 @@ final class CoreWpGraphqlModule implements ModuleInterface {
 		$main_file = LegacyPathResolver::resolve_first(
 			array(
 				'wp-graphql.2.10.1/wp-graphql/wp-graphql.php',
-				'wp-graphql/wp-graphql.php',
 			)
 		);
 		if ( '' === $main_file ) {
