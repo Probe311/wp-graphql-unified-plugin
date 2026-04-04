@@ -25,6 +25,41 @@ final class FeatureFlags {
 		);
 	}
 
+	/**
+	 * Libellés pour l’admin et la doc (text domain wp-graphql-unified).
+	 *
+	 * @return array<string,string>
+	 */
+	public static function descriptions(): array {
+		return array(
+			'core'             => __( 'WPGraphQL core (requis pour le schéma de base).', 'wp-graphql-unified' ),
+			'cpt'              => __( 'Exposition CPT / taxonomies via filtres GraphQL.', 'wp-graphql-unified' ),
+			'enable_all'       => __( 'Active show_in_graphql sur les types publics.', 'wp-graphql-unified' ),
+			'cpt_ui'           => __( 'Pont GraphQL pour Custom Post Type UI.', 'wp-graphql-unified' ),
+			'meta_query'       => __( 'Argument metaQuery sur les connexions compatibles.', 'wp-graphql-unified' ),
+			'tax_query'        => __( 'Argument taxQuery sur les connexions compatibles.', 'wp-graphql-unified' ),
+			'meta'             => __( 'Champs meta issus de register_meta().', 'wp-graphql-unified' ),
+			'total_counts'     => __( 'Champ total sur WPPageInfo (connections).', 'wp-graphql-unified' ),
+			'mb_relationships' => __( 'Schéma MB Relationships (Meta Box).', 'wp-graphql-unified' ),
+			'seo'              => __( 'SEO Yoast GraphQL ou champs meta de secours.', 'wp-graphql-unified' ),
+			'acf'              => __( 'WPGraphQL for ACF.', 'wp-graphql-unified' ),
+			'gutenberg'        => __( 'Blocs et prévisualisations Gutenberg.', 'wp-graphql-unified' ),
+			'woo'              => __( 'WooGraphQL (WooCommerce).', 'wp-graphql-unified' ),
+			'jwt'              => __( 'Authentification JWT pour GraphQL.', 'wp-graphql-unified' ),
+		);
+	}
+
+	/**
+	 * @return array<string,bool>
+	 */
+	public static function all_resolved(): array {
+		$out = array();
+		foreach ( array_keys( self::defaults() ) as $flag ) {
+			$out[ $flag ] = self::enabled( $flag );
+		}
+		return $out;
+	}
+
 	public static function enabled( string $flag ): bool {
 		$defaults = self::defaults();
 		$fallback = $defaults[ $flag ] ?? false;

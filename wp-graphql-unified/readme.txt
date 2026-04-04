@@ -4,7 +4,7 @@ Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless,
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,8 @@ Modules inclus:
 * Add WPGraphQL SEO si Yoast SEO actif, sinon champs meta SEO legers
 * WPGraphQL WooCommerce, WPGraphQL for ACF, JWT, Gutenberg
 
+Depuis **Outils > WPGraphQL Unified**, un tableau resume les drapeaux, les constantes `WPGRAPHQL_UNIFIED_ENABLE_*` et les dependances detectees (WooCommerce, ACF, Yoast, etc.).
+
 == Installation ==
 
 1. Copier le dossier `wp-graphql-unified` dans `wp-content/plugins/`.
@@ -46,7 +48,15 @@ Oui, le plugin expose une API GraphQL standard compatible avec Apollo, urql, Rel
 
 Oui, via les constantes `WPGRAPHQL_UNIFIED_ENABLE_*` dans `wp-config.php`.
 
+= Ou voir l'etat des modules ? =
+
+Dans **Outils > WPGraphQL Unified** (lien aussi sous le nom du plugin dans la liste des extensions).
+
 == Changelog ==
+
+= 0.2.0 =
+* Refactor declaratif des modules dans `Plugin.php`, hook `wpgraphql_unified_booted`, filtre `wpgraphql_unified_legacy_path`.
+* Page d'etat admin, descriptions i18n des drapeaux, deduplication des notices, constantes `WPGRAPHQL_UNIFIED_URL` / `WPGRAPHQL_UNIFIED_REPO_URL`.
 
 = 0.1.0 =
 * Premiere version unifiee avec core embarque et modules legacy.
