@@ -263,7 +263,6 @@ final class Extensions {
 			'support_url'       => ! empty( $extension['support_url'] ) ? esc_url_raw( $extension['support_url'] ) : null,
 			'documentation_url' => ! empty( $extension['documentation_url'] ) ? esc_url_raw( $extension['documentation_url'] ) : null,
 			'repo_url'          => ! empty( $extension['repo_url'] ) ? esc_url_raw( $extension['repo_url'] ) : null,
-			'settings_path'     => ! empty( $extension['settings_path'] ) ? sanitize_text_field( $extension['settings_path'] ) : null,
 			'author'            => [
 				'name'     => ! empty( $extension['author']['name'] ) ? sanitize_text_field( $extension['author']['name'] ) : null,
 				'homepage' => ! empty( $extension['author']['homepage'] ) ? esc_url_raw( $extension['author']['homepage'] ) : null,

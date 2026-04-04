@@ -4,7 +4,7 @@ Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless,
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 8.1
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,7 @@ Modules inclus:
 * Add WPGraphQL SEO si Yoast SEO actif, sinon champs meta SEO legers
 * WPGraphQL WooCommerce, WPGraphQL for ACF, JWT, Gutenberg
 
-Depuis **Reglages > WPGraphQL Unified**, activez ou desactivez chaque paquet, consultez l'auteur (Julien Vaissier), les versions WordPress / PHP / plugin et un tableau d'etat detaille.
+Depuis **Reglages > WPGraphQL Unified** ou **GraphQL > Paquets unifies**, activez ou desactivez chaque paquet, consultez l'auteur (Julien Vaissier), les versions WordPress / PHP / plugin et un tableau d'etat detaille. Les pages WPGraphQL **Extensions** et **GraphQL Gutenberg** sont masquees (bundle deja complet).
 
 == Installation ==
 
@@ -57,6 +57,9 @@ Oui : **Reglages > WPGraphQL Unified** (option `wpgraphql_unified_feature_flags`
 WordPress **6.5+**, PHP **8.1+** (8.3 ou 8.4 recommandes). Teste avec WordPress **6.9.x**. Le front headless (React, Next.js) est indépendant : voir `package.json` a la racine du plugin pour les engines Node/npm.
 
 == Changelog ==
+
+= 0.3.3 =
+* Masquage du sous-menu **Extensions** (WPGraphQL) et de l'ecran admin **GraphQL Gutenberg** ; le module Gutenberg GraphQL reste actif dans le schema si le paquet est coche.
 
 = 0.3.2 =
 * Sous-menu **GraphQL > Paquets unifiés** (meme ecran que Reglages, formulaire et redirection preserves).

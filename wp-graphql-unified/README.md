@@ -71,12 +71,9 @@ Hooks utiles : `wpgraphql_unified_booted`, filtre `wpgraphql_unified_legacy_path
 
 ### Menus GraphQL dans l’admin
 
-Le menu principal **GraphQL** (éléphant : GraphiQL IDE, Réglages, Extensions, …) est celui de **WPGraphQL**. Le bundle ajoute :
+Le menu principal **GraphQL** (éléphant : GraphiQL IDE, Réglages, …) est celui de **WPGraphQL**. Le bundle ajoute **GraphQL → Paquets unifiés** (identique à *Réglages → WPGraphQL Unified*).
 
-- **GraphQL → Paquets unifiés** : même écran que *Réglages → WPGraphQL Unified* (activation des 14 paquets, versions, état détaillé), avec formulaire et redirection cohérents.
-- **GraphQL → Gutenberg (blocs)** : lorsque le module Gutenberg est actif et que GraphiQL est affiché (menu elephant présent).
-
-Sur **GraphQL → Extensions**, la carte **WPGraphQL Unified** liste les paquets **actifs / inactifs** en temps réel et propose un lien de réglages (correctif `settings_path` dans le core embarqué). Les fiches redondantes (ACF, Add WPGraphQL SEO) sont masquées si les modules correspondants sont activés dans le bundle.
+Les entrées **Extensions** (catalogue d’extensions WPGraphQL) et l’écran admin **GraphQL Gutenberg** sont **masqués** : le schéma Gutenberg reste chargé si le paquet est activé, sans page de réglages dédiée dans le menu.
 
 ## Tests
 
