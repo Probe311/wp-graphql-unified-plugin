@@ -27,6 +27,9 @@ final class GoogleSchemaSeoModule implements ModuleInterface {
 	);
 
 	public function register(): void {
+		if ( function_exists( 'YoastSEO' ) || defined( 'WPGRAPHQL_YOAST_SEO_VERSION' ) ) {
+			return;
+		}
 		add_action( 'graphql_register_types', array( $this, 'register_fields' ), 1000 );
 	}
 

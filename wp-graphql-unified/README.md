@@ -1,49 +1,63 @@
 # WPGraphQL Unified
 
-Plugin WordPress unique pour charger WPGraphQL core et les modules de compatibilite:
+Plugin WordPress unique qui embarque WPGraphQL core et les extensions GraphQL du workspace dans `legacy/`.
 
-- WooCommerce
-- ACF
-- JWT Authentication
-- Gutenberg
-- Google Schema SEO fields
+## Modules inclus
+
+| Module | Role |
+|--------|------|
+| Core WPGraphQL | Schema de base |
+| WP GraphQL CPT | Filtres CPT / taxonomies vers GraphQL |
+| Enable all post types | `show_in_graphql` sur les CPT publics |
+| WPGraphQL Custom Post Type UI | Pont avec le plugin CPT UI |
+| WPGraphQL Meta Query | Argument `meta_query` |
+| WPGraphQL Tax Query | Argument `tax_query` |
+| WP GraphQL Meta | Champs depuis `register_meta()` |
+| Total Counts for WPGraphQL | Champ `total` sur `WPPageInfo` |
+| WP GraphQL MB Relationships | Relations Meta Box (si MB Relationships actif) |
+| SEO | Add WPGraphQL SEO si Yoast SEO actif, sinon champs meta legers |
+| WPGraphQL for ACF | Si ACF actif |
+| WPGraphQL Gutenberg | Blocs |
+| WooGraphQL | Si WooCommerce actif |
+| WPGraphQL JWT Authentication | Auth JWT |
+
+Le snippet historique `wp-graphql-google-schema-master/Meta.php` n'est **pas** charge automatiquement (doublons avec la couche SEO).
 
 ## Activation selective (feature flags)
 
-Vous pouvez desactiver un module via constantes:
-
 ```php
-define( 'WPGRAPHQL_UNIFIED_ENABLE_WOO', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_CORE', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_CPT', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_ENABLE_ALL', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_CPT_UI', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_META_QUERY', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_TAX_QUERY', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_META', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_TOTAL_COUNTS', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_MB_RELATIONSHIPS', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_SEO', false );
 define( 'WPGRAPHQL_UNIFIED_ENABLE_ACF', false );
 define( 'WPGRAPHQL_UNIFIED_ENABLE_GUTENBERG', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_WOO', false );
 define( 'WPGRAPHQL_UNIFIED_ENABLE_JWT', false );
-define( 'WPGRAPHQL_UNIFIED_ENABLE_SEO', false );
 ```
 
-## Sources legacy embarquees
+## Ordre de chargement
 
-Ce plugin est prevu pour fonctionner de maniere autonome avec:
+Voir `src/Plugin.php` : exposition CPT, filtres de requete, meta, totaux, MB, SEO, puis ACF, Gutenberg, Woo, JWT.
 
-- `wp-graphql-unified/legacy/wp-graphql.2.10.1/wp-graphql/wp-graphql.php`
-- `wp-graphql-unified/legacy/wp-graphql-woocommerce-v0.19.0/wp-graphql-woocommerce.php`
-- `wp-graphql-unified/legacy/wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication.php`
-- `wp-graphql-unified/legacy/wp-graphql-gutenberg-develop/wp-graphql-gutenberg-develop/plugin.php`
-- `wp-graphql-unified/legacy/wpgraphql-acf-develop/wpgraphql-acf-develop/wpgraphql-acf.php`
-- `wp-graphql-unified/legacy/wp-graphql-google-schema-master/wp-graphql-google-schema-master/Meta.php`
+## Sources legacy
 
-Le resolver garde un fallback dev vers le dossier frere du plugin:
-
-1. `wp-graphql-unified/legacy/...` (bundle final recommande)
-2. dossier frere du plugin (mode dev workspace)
+1. `wp-graphql-unified/legacy/...`
+2. Fallback : dossier parent du plugin (dev)
 
 ## Diagnostics admin
 
-Le plugin affiche des notices admin dediees si:
+Notices si source manquante ou prerequis WordPress absent (WooCommerce, ACF, CPT UI, MB Relationships, Yoast pour la branche SEO officielle).
 
-- le core WPGraphQL embarque est introuvable;
-- un module embarque est introuvable;
-- un prerequis plugin n'est pas actif (ex: WooCommerce, ACF).
+## Tests
 
-## Tests de non-regression
-
-Voir `tests/regression/README.md`.
+```powershell
+php .\tests\regression\verify-legacy-structure.php
+php .\tests\regression\run-regression.php http://localhost/graphql
+```

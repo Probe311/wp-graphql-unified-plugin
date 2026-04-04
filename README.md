@@ -4,14 +4,13 @@ Plugin WordPress unifié qui regroupe WPGraphQL core et les extensions principal
 
 ## Objectif
 
-Passer d'un stack de plusieurs extensions WPGraphQL à un plugin unique :
+Passer d'un stack de plusieurs extensions WPGraphQL à un plugin unique. Le dossier `wp-graphql-unified/legacy/` embarque notamment :
 
-- WPGraphQL (core)
-- WPGraphQL WooCommerce
-- WPGraphQL for ACF
-- WPGraphQL JWT Authentication
-- WPGraphQL Gutenberg
-- WP GraphQL Google Schema
+- WPGraphQL (core), WooCommerce, ACF, JWT, Gutenberg
+- Total Counts, CPT, Enable all post types, CPT UI bridge
+- Meta, Meta Query, Tax Query, MB Relationships, Add WPGraphQL SEO (Yoast)
+
+Le snippet `google-schema` historique n'est pas charge pour eviter les doublons SEO.
 
 Ce dépôt contient le plugin final dans `wp-graphql-unified/`.
 
@@ -25,20 +24,27 @@ Ce dépôt contient le plugin final dans `wp-graphql-unified/`.
 
 ## Architecture
 
-Le plugin charge les modules dans cet ordre pour maximiser la compatibilité :
+Le plugin charge les modules dans cet ordre (voir `wp-graphql-unified/src/Plugin.php`) :
 
 1. Core WPGraphQL
-2. ACF
-3. Gutenberg
-4. WooCommerce
-5. JWT Auth
-6. SEO fields
+2. CPT, Enable all post types, CPT UI (selon flags)
+3. Meta Query, Tax Query, WP GraphQL Meta, Total Counts
+4. MB Relationships (si Meta Box Relationships actif)
+5. SEO (Yoast GraphQL ou fallback meta)
+6. ACF, Gutenberg, WooCommerce, JWT
 
-Le chargement passe par un orchestrateur central et des modules isolés :
+Fichiers cles : `src/Plugin.php`, `src/Modules/*`, `src/Support/SchemaRegistryGuards.php`, `src/Modules/SeoRouterModule.php`.
 
-- `src/Plugin.php`
-- `src/Modules/*`
-- `src/Support/SchemaRegistryGuards.php`
+## Matrice compatibilite (prerequis WordPress)
+
+| Extension embarquee | Prerequis optionnel |
+|---------------------|---------------------|
+| WooGraphQL | WooCommerce |
+| WPGraphQL for ACF | Advanced Custom Fields |
+| CPT UI bridge | Custom Post Type UI |
+| MB Relationships | MB Relationships (Meta Box) |
+| Add WPGraphQL SEO | Yoast SEO (`YoastSEO()`) |
+| Fallback SEO | aucun (meta `_yoast_*` si presentes en base) |
 
 ## Compatibilité
 
@@ -80,11 +86,19 @@ Le plugin reste actif même si certains prérequis ne sont pas présents, et aff
 Tu peux désactiver sélectivement des modules via constantes :
 
 ```php
+define( 'WPGRAPHQL_UNIFIED_ENABLE_CPT', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_ENABLE_ALL', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_CPT_UI', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_META_QUERY', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_TAX_QUERY', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_META', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_TOTAL_COUNTS', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_MB_RELATIONSHIPS', false );
+define( 'WPGRAPHQL_UNIFIED_ENABLE_SEO', false );
 define( 'WPGRAPHQL_UNIFIED_ENABLE_WOO', false );
 define( 'WPGRAPHQL_UNIFIED_ENABLE_ACF', false );
 define( 'WPGRAPHQL_UNIFIED_ENABLE_GUTENBERG', false );
 define( 'WPGRAPHQL_UNIFIED_ENABLE_JWT', false );
-define( 'WPGRAPHQL_UNIFIED_ENABLE_SEO', false );
 ```
 
 ## Tests et qualité

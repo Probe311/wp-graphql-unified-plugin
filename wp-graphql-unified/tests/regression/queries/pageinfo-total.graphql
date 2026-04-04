@@ -1,0 +1,8 @@
+query PageInfoTotalField {
+  __type(name: "WPPageInfo") {
+    name
+    fields {
+      name
+    }
+  }
+}

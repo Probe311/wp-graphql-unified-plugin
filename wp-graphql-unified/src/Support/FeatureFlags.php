@@ -8,12 +8,20 @@ final class FeatureFlags {
 	 */
 	public static function defaults(): array {
 		return array(
-			'core'      => true,
-			'acf'       => true,
-			'gutenberg' => true,
-			'woo'       => true,
-			'jwt'       => true,
-			'seo'       => true,
+			'core'             => true,
+			'cpt'              => true,
+			'enable_all'       => true,
+			'cpt_ui'           => true,
+			'meta_query'       => true,
+			'tax_query'        => true,
+			'meta'             => true,
+			'total_counts'     => true,
+			'mb_relationships' => true,
+			'seo'              => true,
+			'acf'              => true,
+			'gutenberg'        => true,
+			'woo'              => true,
+			'jwt'              => true,
 		);
 	}
 

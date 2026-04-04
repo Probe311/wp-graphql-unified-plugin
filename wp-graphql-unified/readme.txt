@@ -1,6 +1,6 @@
 === WPGraphQL Unified ===
 Contributors: probe311
-Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless, nextjs, react
+Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless, nextjs, react, meta-query, tax-query, cpt, yoast
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -8,7 +8,7 @@ Stable tag: 0.1.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Plugin WordPress unifie qui embarque WPGraphQL core et ses extensions principales (WooCommerce, ACF, JWT, Gutenberg, SEO) dans une seule extension autonome.
+Plugin WordPress unifie qui embarque WPGraphQL core et les extensions du depot (CPT, meta/tax query, meta register_meta, total counts, MB Relationships, Yoast SEO GraphQL, Woo, ACF, JWT, Gutenberg, SEO fallback) dans une seule extension autonome.
 
 == Description ==
 
@@ -23,11 +23,12 @@ Objectifs principaux:
 Modules inclus:
 
 * WPGraphQL (core)
-* WPGraphQL WooCommerce
-* WPGraphQL for ACF
-* WPGraphQL JWT Authentication
-* WPGraphQL Gutenberg
-* Google Schema fields
+* WP GraphQL CPT, Enable all post types, WPGraphQL Custom Post Type UI
+* WPGraphQL Meta Query, WPGraphQL Tax Query, WP GraphQL Meta
+* Total Counts for WPGraphQL
+* WP GraphQL MB Relationships (si MB Relationships actif)
+* Add WPGraphQL SEO si Yoast SEO actif, sinon champs meta SEO legers
+* WPGraphQL WooCommerce, WPGraphQL for ACF, JWT, Gutenberg
 
 == Installation ==
 

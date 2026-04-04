@@ -5,10 +5,18 @@ namespace WPGraphQLUnified;
 use WPGraphQLUnified\Contracts\ModuleInterface;
 use WPGraphQLUnified\Modules\AcfModule;
 use WPGraphQLUnified\Modules\CoreWpGraphqlModule;
-use WPGraphQLUnified\Modules\GoogleSchemaSeoModule;
+use WPGraphQLUnified\Modules\CptModule;
+use WPGraphQLUnified\Modules\CptUiModule;
+use WPGraphQLUnified\Modules\EnableAllPostTypesModule;
 use WPGraphQLUnified\Modules\GutenbergModule;
 use WPGraphQLUnified\Modules\JwtAuthModule;
+use WPGraphQLUnified\Modules\MbRelationshipsModule;
+use WPGraphQLUnified\Modules\MetaQueryModule;
+use WPGraphQLUnified\Modules\TaxQueryModule;
+use WPGraphQLUnified\Modules\TotalCountsModule;
 use WPGraphQLUnified\Modules\WooCommerceModule;
+use WPGraphQLUnified\Modules\WpGraphqlMetaModule;
+use WPGraphQLUnified\Modules\SeoRouterModule;
 use WPGraphQLUnified\Support\FeatureFlags;
 use WPGraphQLUnified\Support\ModuleStatusReporter;
 
@@ -36,7 +44,21 @@ final class Plugin {
 	}
 
 	public function register_non_core_modules(): void {
-		$order = array( 'acf', 'gutenberg', 'woo', 'jwt', 'seo' );
+		$order = array(
+			'cpt',
+			'enable_all',
+			'cpt_ui',
+			'meta_query',
+			'tax_query',
+			'wpgraphql_meta',
+			'total_counts',
+			'mb_relationships',
+			'seo',
+			'acf',
+			'gutenberg',
+			'woo',
+			'jwt',
+		);
 		foreach ( $order as $key ) {
 			if ( isset( $this->modules[ $key ] ) ) {
 				$this->modules[ $key ]->register();
@@ -53,6 +75,33 @@ final class Plugin {
 		if ( FeatureFlags::enabled( 'core' ) ) {
 			$modules['core'] = new CoreWpGraphqlModule();
 		}
+		if ( FeatureFlags::enabled( 'cpt' ) ) {
+			$modules['cpt'] = new CptModule();
+		}
+		if ( FeatureFlags::enabled( 'enable_all' ) ) {
+			$modules['enable_all'] = new EnableAllPostTypesModule();
+		}
+		if ( FeatureFlags::enabled( 'cpt_ui' ) ) {
+			$modules['cpt_ui'] = new CptUiModule();
+		}
+		if ( FeatureFlags::enabled( 'meta_query' ) ) {
+			$modules['meta_query'] = new MetaQueryModule();
+		}
+		if ( FeatureFlags::enabled( 'tax_query' ) ) {
+			$modules['tax_query'] = new TaxQueryModule();
+		}
+		if ( FeatureFlags::enabled( 'meta' ) ) {
+			$modules['wpgraphql_meta'] = new WpGraphqlMetaModule();
+		}
+		if ( FeatureFlags::enabled( 'total_counts' ) ) {
+			$modules['total_counts'] = new TotalCountsModule();
+		}
+		if ( FeatureFlags::enabled( 'mb_relationships' ) ) {
+			$modules['mb_relationships'] = new MbRelationshipsModule();
+		}
+		if ( FeatureFlags::enabled( 'seo' ) ) {
+			$modules['seo'] = new SeoRouterModule();
+		}
 		if ( FeatureFlags::enabled( 'acf' ) ) {
 			$modules['acf'] = new AcfModule();
 		}
@@ -64,9 +113,6 @@ final class Plugin {
 		}
 		if ( FeatureFlags::enabled( 'jwt' ) ) {
 			$modules['jwt'] = new JwtAuthModule();
-		}
-		if ( FeatureFlags::enabled( 'seo' ) ) {
-			$modules['seo'] = new GoogleSchemaSeoModule();
 		}
 
 		return $modules;

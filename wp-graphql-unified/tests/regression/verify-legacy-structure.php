@@ -13,7 +13,15 @@ $required = array(
 	'wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication-develop/wp-graphql-jwt-authentication.php',
 	'wp-graphql-gutenberg-develop/wp-graphql-gutenberg-develop/plugin.php',
 	'wpgraphql-acf-develop/wpgraphql-acf-develop/wpgraphql-acf.php',
-	'wp-graphql-google-schema-master/wp-graphql-google-schema-master/Meta.php',
+	'total-counts-for-wp-graphql-master/total-counts-for-wp-graphql-master/total-counts-for-wp-graphql.php',
+	'wp-graphql-cpt-master/wp-graphql-cpt-master/wp-graphql-cpt.php',
+	'wp-graphql-custom-post-type-ui-master/wp-graphql-custom-post-type-ui-master/wp-graphql-custom-post-type-ui.php',
+	'wp-graphql-enable-all-post-types-master/wp-graphql-enable-all-post-types-master/wp-graphql-enable-all-post-types.php',
+	'wp-graphql-meta-master/wp-graphql-meta-master/wp-graphql-meta.php',
+	'wp-graphql-meta-query-develop/wp-graphql-meta-query-develop/wp-graphql-meta-query.php',
+	'wp-graphql-tax-query-develop/wp-graphql-tax-query-develop/wp-graphql-tax-query.php',
+	'wp-graphql-mb-relationships-master/wp-graphql-mb-relationships-master/wp-graphql-mb-relationships.php',
+	'wp-graphql-yoast-seo-master/wp-graphql-yoast-seo-master/wp-graphql-yoast-seo.php',
 );
 
 $missing = array();

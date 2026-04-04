@@ -19,3 +19,5 @@ php .\tests\regression\run-regression.php http://localhost/graphql
 - `queries/introspection-critical.graphql`
 - `queries/auth-mutations.graphql`
 - `queries/woo-root-fields.graphql`
+- `queries/modules-critical.graphql`
+- `queries/pageinfo-total.graphql`

@@ -1,0 +1,48 @@
+name: WordPress Coding Standards
+
+on:
+    push:
+        branches:
+            - master
+        paths:
+            - '**.php'
+            - 'phpcs.xml'
+            - '.github/workflows/coding-standards.yml'
+    pull_request:
+        branches:
+            - master
+        paths:
+            - '**.php'
+            - 'phpcs.xml'
+            - '.github/workflows/coding-standards.yml'
+jobs:
+    phpcs:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # important!
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '7.4'
+                  tools: composer
+
+            - name: Cache Composer dependencies
+              uses: actions/cache@v4
+              with:
+                  path: /tmp/composer-cache
+                  key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+            - name: Install Composer dependencies
+              run: composer install --dev --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+            - name: Verify PHPCS standards
+              run: ./vendor/bin/phpcs -i
+
+            - uses: thenabeel/action-phpcs@v8
+              with:
+                  files: '**.php' # you may customize glob as needed
+                  phpcs_path: ./vendor/bin/phpcs
+                  standard: phpcs.xml
