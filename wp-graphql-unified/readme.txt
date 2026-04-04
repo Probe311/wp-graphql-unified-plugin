@@ -1,10 +1,10 @@
 === WPGraphQL Unified ===
-Contributors: probe311
+Contributors: julienvaissier, probe311
 Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless, nextjs, react, meta-query, tax-query, cpt, yoast
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 8.1
-Stable tag: 0.2.1
+Stable tag: 0.3.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,7 +30,7 @@ Modules inclus:
 * Add WPGraphQL SEO si Yoast SEO actif, sinon champs meta SEO legers
 * WPGraphQL WooCommerce, WPGraphQL for ACF, JWT, Gutenberg
 
-Depuis **Outils > WPGraphQL Unified**, un tableau resume les drapeaux, les constantes `WPGRAPHQL_UNIFIED_ENABLE_*` et les dependances detectees (WooCommerce, ACF, Yoast, etc.).
+Depuis **Reglages > WPGraphQL Unified**, activez ou desactivez chaque paquet, consultez l'auteur (Julien Vaissier), les versions WordPress / PHP / plugin et un tableau d'etat detaille.
 
 == Installation ==
 
@@ -46,17 +46,21 @@ Oui, le plugin expose une API GraphQL standard compatible avec Apollo, urql, Rel
 
 = Puis-je desactiver certains modules ? =
 
-Oui, via les constantes `WPGRAPHQL_UNIFIED_ENABLE_*` dans `wp-config.php`.
+Oui : **Reglages > WPGraphQL Unified** (option `wpgraphql_unified_feature_flags`), ou via les constantes `WPGRAPHQL_UNIFIED_ENABLE_*` dans `wp-config.php` (prioritaires sur l'ecran).
 
 = Ou voir l'etat des modules ? =
 
-Dans **Outils > WPGraphQL Unified** (lien aussi sous le nom du plugin dans la liste des extensions).
+**Reglages > WPGraphQL Unified**, ou le lien **Reglages** / **Reglages & etat** sous le nom du plugin.
 
 = Quelles versions WordPress / PHP ? =
 
 WordPress **6.5+**, PHP **8.1+** (8.3 ou 8.4 recommandes). Teste avec WordPress **6.9.x**. Le front headless (React, Next.js) est indépendant : voir `package.json` a la racine du plugin pour les engines Node/npm.
 
 == Changelog ==
+
+= 0.3.0 =
+* Auteur : Julien Vaissier, URI https://julienvaissier.fr/fr/
+* Page **Reglages > WPGraphQL Unified** : activation / desactivation des paquets, versions WordPress & PHP, prenom / nom, etat detaille. Redirection depuis l'ancienne page Outils.
 
 = 0.2.1 =
 * Exigences alignees sur les versions recentes : WordPress 6.5+, PHP 8.1+, teste jusqu'a 6.9.

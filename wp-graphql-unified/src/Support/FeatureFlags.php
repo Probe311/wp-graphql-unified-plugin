@@ -60,6 +60,31 @@ final class FeatureFlags {
 		return $out;
 	}
 
+	public static function is_locked_by_constant( string $flag ): bool {
+		$const = 'WPGRAPHQL_UNIFIED_ENABLE_' . strtoupper( $flag );
+
+		return defined( $const );
+	}
+
+	/**
+	 * Construit la carte à enregistrer en base (ignore les drapeaux imposés par wp-config).
+	 *
+	 * @param array<string,mixed> $input Clés = noms de drapeaux, valeurs truthy si activé.
+	 * @return array<string,bool>
+	 */
+	public static function sanitize_option_payload( array $input ): array {
+		$out = array();
+		foreach ( array_keys( self::defaults() ) as $flag ) {
+			if ( self::is_locked_by_constant( $flag ) ) {
+				continue;
+			}
+			// hidden value "0" doit rester false (empty("0") est vrai en PHP).
+			$out[ $flag ] = isset( $input[ $flag ] ) && '1' === (string) $input[ $flag ];
+		}
+
+		return $out;
+	}
+
 	public static function enabled( string $flag ): bool {
 		$defaults = self::defaults();
 		$fallback = $defaults[ $flag ] ?? false;

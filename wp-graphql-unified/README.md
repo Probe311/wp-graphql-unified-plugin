@@ -65,7 +65,7 @@ Toutes les extensions sont lues uniquement depuis `wp-graphql-unified/legacy/` (
 
 Notices si source manquante ou prerequis WordPress absent (WooCommerce, ACF, CPT UI, MB Relationships, Yoast pour la branche SEO officielle).
 
-**Outils > WPGraphQL Unified** : tableau des modules, drapeaux effectifs, option `wpgraphql_unified_feature_flags` et indices d’environnement.
+**Réglages → WPGraphQL Unified** : activation des paquets (option `wpgraphql_unified_feature_flags`), tableau d’état, versions WordPress / PHP / plugin, auteur [Julien Vaissier](https://julienvaissier.fr/fr/). Lien **Réglages** dans la liste des extensions.
 
 Hooks utiles : `wpgraphql_unified_booted`, filtre `wpgraphql_unified_legacy_path` (chemin absolu résolu pour un fichier sous `legacy/`).
 
