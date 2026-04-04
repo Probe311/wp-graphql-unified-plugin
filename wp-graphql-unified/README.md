@@ -2,6 +2,17 @@
 
 Plugin WordPress unique qui embarque WPGraphQL core et les extensions GraphQL du workspace dans `legacy/`.
 
+## Compatibilite (versions recentes)
+
+| Composant | Prise en charge |
+|-----------|-----------------|
+| WordPress | **6.5+** (teste avec **6.9.x**) |
+| PHP | **8.1+** (8.3 / **8.4** recommandes sur l’hote) |
+| React (front headless) | **18.3+** ou **19.x** avec Apollo Client, urql ou Relay |
+| Node.js (Next.js, tooling) | **20 LTS** ou **22 LTS** (voir `package.json` du plugin pour `engines`) |
+
+Ce depot ne shippe pas d’application React : l’API GraphQL reste standard ; les versions ci-dessus concernent l’environnement WordPress et les projets clients habituels.
+
 ## Modules inclus
 
 | Module | Role |

@@ -1,0 +1,10 @@
+{
+	"name": "wp-graphql-unified",
+	"private": true,
+	"description": "Plugin WordPress — métadonnées engines pour projets headless (Next.js, React). Non publié sur npm ; React 18.3+ ou 19.x côté client documenté dans le README.",
+	"license": "GPL-2.0-or-later",
+	"engines": {
+		"node": ">=20.18.0",
+		"npm": ">=10.0.0"
+	}
+}

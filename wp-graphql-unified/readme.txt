@@ -1,10 +1,10 @@
 === WPGraphQL Unified ===
 Contributors: probe311
 Tags: wordpress, graphql, wpgraphql, woocommerce, acf, gutenberg, jwt, headless, nextjs, react, meta-query, tax-query, cpt, yoast
-Requires at least: 6.0
-Tested up to: 6.8
-Requires PHP: 7.4
-Stable tag: 0.2.0
+Requires at least: 6.5
+Tested up to: 6.9
+Requires PHP: 8.1
+Stable tag: 0.2.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,7 +52,15 @@ Oui, via les constantes `WPGRAPHQL_UNIFIED_ENABLE_*` dans `wp-config.php`.
 
 Dans **Outils > WPGraphQL Unified** (lien aussi sous le nom du plugin dans la liste des extensions).
 
+= Quelles versions WordPress / PHP ? =
+
+WordPress **6.5+**, PHP **8.1+** (8.3 ou 8.4 recommandes). Teste avec WordPress **6.9.x**. Le front headless (React, Next.js) est indépendant : voir `package.json` a la racine du plugin pour les engines Node/npm.
+
 == Changelog ==
+
+= 0.2.1 =
+* Exigences alignees sur les versions recentes : WordPress 6.5+, PHP 8.1+, teste jusqu'a 6.9.
+* `package.json` (engines Node/npm) et documentation stack front React / Node dans le README.
 
 = 0.2.0 =
 * Refactor declaratif des modules dans `Plugin.php`, hook `wpgraphql_unified_booted`, filtre `wpgraphql_unified_legacy_path`.
